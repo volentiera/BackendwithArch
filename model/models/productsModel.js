@@ -29,7 +29,6 @@ class Product {
     }
 
     static validar(product,required) {
-        //console.log(noticia,requerido)
         const ProductSchema = Joi.object({
             tittle: required? Joi.string().required() : Joi.string(),
             desc: required? Joi.string().required() : Joi.string(),

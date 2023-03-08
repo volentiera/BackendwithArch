@@ -1,20 +1,23 @@
 import productDTO from '../DTO/productsDTO.js'
 
-import mongodb from 'mongodb';
-const { MongoClient,ObjectId } = mongodb;
+import mongodb from 'mongodb'
+import ProductsBaseDAO from './productsBase.js'
+const { MongoClient , ObjectId } = mongodb;
 
-class ProductsDBMongoDAO {
+class ProductsDBMongoDAO extends ProductsBaseDAO {
 
     constructor(database, collection) {
+        super()
         ;( async () => {
             console.log('Contectando a la Base de datos...')
             /* ---------------------------------------------------------------- */
             /*              Conexión a la base de datos warriors                */
             /* ---------------------------------------------------------------- */
             // connecting at mongoClient
-            const connection = await MongoClient.connect('mongodb://localhost',{
+            
+            const connection = await MongoClient.connect('mongodb://localhost:27017',{
                 useNewUrlParser: true,
-                useUnifiedTopology: true
+                useUnifiedTopology: true,
             });
             const db = connection.db(database);
             this._collection = db.collection(collection);
@@ -28,7 +31,6 @@ class ProductsDBMongoDAO {
             if(_id) {
                 console.log(_id)
                 const product = await this._collection.findOne({_id: ObjectId(_id)})
-                console.log(noticia)
                 return [product]
             }
             else {
@@ -43,6 +45,7 @@ class ProductsDBMongoDAO {
 
     save = async product => {
         try{
+            console.log(product)
             await this._collection.insertOne(product);
             return product
         }

@@ -9,7 +9,6 @@ class ProductsController {
     getAll = async (req,res) => {
         try {
             let id = req.params.id
-            //console.log(id)
             let products = await this.apiProducts.getAll(id)
 
             res.send(products)
@@ -22,7 +21,6 @@ class ProductsController {
     save = async (req,res) => {
         try {
             let product = req.body
-            //console.log(Noticia)
             let savedProduct = await this.apiProducts.save(product)
 
             res.json(savedProduct)
@@ -36,7 +34,6 @@ class ProductsController {
         try {
             let product = req.body
             let id = req.params.id
-            //console.log(Noticia)
             let updatedProduct = await this.apiProducts.update(id,product)
             res.json(updatedProduct)
         }
