@@ -1,14 +1,14 @@
 import productDTO from '../DTO/productsDTO.js'
 
 import mongodb from 'mongodb'
-import ProductsBaseDAO from './productsBase.js'
+
 const { MongoClient , ObjectId } = mongodb;
 
-class ProductsDBMongoDAO extends ProductsBaseDAO {
+class ProductsDBMongoDAO {
 
     constructor(database, collection) {
-        super()
-        ;( async () => {
+
+        ( async () => {
             console.log('Contectando a la Base de datos...')
             /* ---------------------------------------------------------------- */
             /*              Conexión a la base de datos warriors                */
@@ -31,7 +31,7 @@ class ProductsDBMongoDAO extends ProductsBaseDAO {
         try {
             if(_id) {
                 console.log(_id)
-                const product = await this._collection.findOne({_id: ObjectId(_id)})
+                const product = await this._collection.findOne({_id:new ObjectId(_id)})
                 return [product]
             }
             else {
@@ -58,7 +58,7 @@ class ProductsDBMongoDAO extends ProductsBaseDAO {
 
     update = async (_id,product) => {
         try {
-            await this._collection.updateOne({_id:ObjectId(_id)}, {$set: product});
+            await this._collection.updateOne({_id:new ObjectId(_id)}, {$set: product});
             return product
         }
         catch(error) {
@@ -70,7 +70,7 @@ class ProductsDBMongoDAO extends ProductsBaseDAO {
     delete = async _id => {
         let deletedProduct = productDTO({},_id,null)
         try {
-            await this._collection.deleteOne({_id:ObjectId(_id)})
+            await this._collection.deleteOne({_id:new ObjectId(_id)})
             return deletedProduct
         }
         catch(error) {
