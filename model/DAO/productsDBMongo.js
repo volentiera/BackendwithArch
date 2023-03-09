@@ -14,8 +14,7 @@ class ProductsDBMongoDAO extends ProductsBaseDAO {
             /*              Conexión a la base de datos warriors                */
             /* ---------------------------------------------------------------- */
             // connecting at mongoClient
-            
-            const connection = await MongoClient.connect('mongodb://localhost:27017',{
+            const connection = await MongoClient.connect('mongodb://127.0.0.1:27017',{
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
             });
@@ -23,7 +22,9 @@ class ProductsDBMongoDAO extends ProductsBaseDAO {
             this._collection = db.collection(collection);
             /* ---------------------------------------------------------------- */
             console.log('Base de datos conectada')
-        })()
+        })().catch((error) => {
+            console.error('Error al conectar a la Base de datos:', error);
+        });
     }
 
     getAll = async _id => {
@@ -45,7 +46,6 @@ class ProductsDBMongoDAO extends ProductsBaseDAO {
 
     save = async product => {
         try{
-            console.log(product)
             await this._collection.insertOne(product);
             return product
         }

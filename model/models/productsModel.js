@@ -1,5 +1,6 @@
 import Joi from 'joi'
 
+
 class Product {
 
     constructor(tittle, desc, img, price) {
