@@ -2,6 +2,7 @@ import config from './config/config.js';
 import express from 'express'
 import cors from 'cors'
 import ProductsRoute from './router/productsRoute.js'
+import MessagesRoute from './router/messagesRoute.js';
 
 const app = express()
 
@@ -11,11 +12,13 @@ app.use(express.static('public'))
 app.use(express.json())
 
 const productsRoute = new ProductsRoute()
+const messagesRoute = new MessagesRoute()
 
 /* ------------------------------------------------------------- */
 /*             ZONA DE RUTAS MANEJADAS POR EL ROUTER             */
 /* ------------------------------------------------------------- */
 app.use('/api/productos', productsRoute.start())
+app.use('/api/mensajes',messagesRoute.start())
 
 /* ------------------------------------------------------------- */
 /*                      Servidor LISTEN                          */
