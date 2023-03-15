@@ -10,7 +10,6 @@ class ProductsController {
         try {
             let id = req.params.id
             let products = await this.apiProducts.getAll(id)
-
             res.send(products)
         }
         catch(error) {
@@ -22,7 +21,6 @@ class ProductsController {
         try {
             let product = req.body
             let savedProduct = await this.apiProducts.save(product)
-
             res.json(savedProduct)
         }
         catch(error) {
